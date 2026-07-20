@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Employee Leave Management System is a full-stack web application developed to simplify and streamline the leave management process within an organization. It enables employees to submit leave requests, monitor their leave history, and manage their profiles, while providing administrators with a centralized dashboard to manage employees, departments, and leave approvals.
+A full-stack MERN Employee Leave Management System that streamlines the leave approval process within an organization. Employees can apply for leave, track leave history, and manage their profiles, while administrators can manage employees, departments, approve or reject leave requests, monitor activities, and analyze leave statistics through an interactive dashboard.
 
 The application focuses on secure authentication, efficient leave tracking, and an intuitive user interface to improve organizational workflow.
 
@@ -23,57 +23,51 @@ The application focuses on secure authentication, efficient leave tracking, and 
 
 ### Admin Module
 
-* Admin Dashboard
-* Employee Management
-* Add New Employees
-* Update Employee Information
-* Delete Employee Records
-* Department Management
-* View Employee Details
-* Monitor Leave Requests
-* Activity Logs
-* Dashboard Analytics
+***Admin**
+- Secure administrator authentication
+- Interactive dashboard with leave analytics
+- Approve or reject employee leave requests
+- Automatic leave balance updates after approval or rejection
+- Employee management (Add, View, Update and Delete)
+- Department management
+- Activity log for administrative actions
+- Leave request monitoring and reporting
 
 ---
 ## Technology Stack
 
-### Frontend
+## Tech Stack
 
-* React.js
-* Vite
-* React Router DOM
-* Tailwind CSS
-* Axios
-* Recharts
+### Frontend
+- React.js
+- Vite
+- React Router DOM
+- Tailwind CSS
+- Axios
+- Recharts
 
 ### Backend
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
 
-* Node.js
-* Express.js
-* MongoDB
-* Mongoose
-* JWT Authentication
-* bcrypt.js
+### Authentication
+- JWT (JSON Web Token)
+- bcrypt.js
 
 ### Development Tools
-
-* Visual Studio Code
-* Git
-* GitHub
+- Git
+- GitHub
+- Visual Studio Code
+- Postman
 
 ## Project Structure
 
 
 Employee-Leave-Management-System
 │
-├── client
-│   ├── src
-│   ├── assets
-│   ├── components
-│   ├── context
-│   ├── pages
-│   └── services
-│
+├── public
 ├── server
 │   ├── config
 │   ├── controllers
@@ -82,9 +76,18 @@ Employee-Leave-Management-System
 │   ├── routes
 │   └── server.js
 │
+├── src
+│   ├── assets
+│   ├── components
+│   ├── context
+│   ├── layouts
+│   ├── pages
+│   ├── services
+│   └── utils
+│
+├── package.json
+├── vite.config.js
 └── README.md
-
-
 ---
 
 ## Authentication
@@ -130,7 +133,7 @@ git clone :-https://github.com/adityanarayan-1234/employee-leave-management-syst
 ### Install Frontend
 
 bash
-cd client
+
 npm install
 npm run dev
 
@@ -169,6 +172,12 @@ JWT_SECRET=your_secret_key
 * Mobile Responsive Enhancements
 
 ---
+## Security
+
+- Passwords are securely hashed using bcrypt.js.
+- JWT authentication protects private routes.
+- Environment variables are stored in the server/.env file.
+- Sensitive credentials are excluded from version control using .gitignore.
 
 ## Learning Outcomes
 

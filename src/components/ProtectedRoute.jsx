@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-export default function ProtectedRoute({ children, adminOnly = false }) {
+export default function ProtectedRoute({ children, adminOnly = false, employeeOnly = false }) {
   const { isAuthenticated, isAdmin, loading } = useAuth();
 
   if (loading) {
@@ -18,6 +18,12 @@ export default function ProtectedRoute({ children, adminOnly = false }) {
 
   if (adminOnly && !isAdmin) {
     return <Navigate to="/dashboard" replace />;
+  }
+
+  // Admins manage leave, they don't apply for it - keep them out of the
+  // employee-facing leave application/history pages entirely
+  if (employeeOnly && isAdmin) {
+    return <Navigate to="/admin" replace />;
   }
 
   return children;

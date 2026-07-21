@@ -32,7 +32,7 @@ const EmployeeSchema = new mongoose.Schema(
       default: "General",
     },
 
-    
+    // Annual leave quota in days. Deducted as leave requests get approved.
     leaveBalance: {
       type: Number,
       default: 18,

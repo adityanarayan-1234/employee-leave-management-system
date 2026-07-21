@@ -1,47 +1,23 @@
 # Employee Leave Management System
 
-## Overview
+A full-stack MERN application designed to simplify employee leave management with secure authentication, role-based access, department management, and leave approval workflows.
 
-A full-stack MERN Employee Leave Management System that streamlines the leave approval process within an organization. Employees can apply for leave, track leave history, and manage their profiles, while administrators can manage employees, departments, approve or reject leave requests, monitor activities, and analyze leave statistics through an interactive dashboard.
+## Live Demo
 
-The application focuses on secure authentication, efficient leave tracking, and an intuitive user interface to improve organizational workflow.
+**Live Application:**  
+https://employee-leave-management-system-psi.vercel.app/
 
----
-
-## Features
-
-### Employee Module
-
-* Secure User Registration and Login
-* JWT-Based Authentication
-* Employee Dashboard
-* Employee Profile Management
-* Apply for Leave
-* View Leave History
-* Leave Status Tracking
-* Logout Functionality
-
-### Admin Module
-
-***Admin**
-- Secure administrator authentication
-- Interactive dashboard with leave analytics
-- Approve or reject employee leave requests
-- Automatic leave balance updates after approval or rejection
-- Employee management (Add, View, Update and Delete)
-- Department management
-- Activity log for administrative actions
-- Leave request monitoring and reporting
+**GitHub Repository:**  
+https://github.com/adityanarayan-1234/employee-leave-management-system
 
 ---
-## Technology Stack
 
 ## Tech Stack
 
 ### Frontend
-- React.js
+- React 19
 - Vite
-- React Router DOM
+- React Router
 - Tailwind CSS
 - Axios
 - Recharts
@@ -51,153 +27,149 @@ The application focuses on secure authentication, efficient leave tracking, and 
 - Express.js
 - MongoDB
 - Mongoose
+- JWT Authentication
+- bcryptjs
 
-### Authentication
-- JWT (JSON Web Token)
-- bcrypt.js
+---
 
-### Development Tools
-- Git
-- GitHub
-- Visual Studio Code
-- Postman
+## Features
+
+### Employee Module
+- Secure Registration and Login
+- JWT-Based Authentication
+- Employee Dashboard
+- Profile Management
+- Apply for Leave
+- View Leave History
+- Leave Balance Tracking
+- Logout Functionality
+
+### Admin Module
+- Admin Dashboard
+- Employee Management
+- Department Management
+- Leave Request Approval & Rejection
+- Leave Analytics Dashboard
+- Activity Logs
+- Employee Directory
+- CSV Report Export
+
+---
 
 ## Project Structure
 
-
-Employee-Leave-Management-System
-│
-├── public
-├── server
-│   ├── config
-│   ├── controllers
-│   ├── middleware
-│   ├── models
-│   ├── routes
+```text
+employee-leave-management/
+├── server/
+│   ├── config/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── utils/
 │   └── server.js
 │
-├── src
-│   ├── assets
-│   ├── components
-│   ├── context
-│   ├── layouts
-│   ├── pages
-│   ├── services
-│   └── utils
+├── src/
+│   ├── components/
+│   ├── context/
+│   ├── layouts/
+│   ├── pages/
+│   ├── services/
+│   ├── utils/
+│   └── main.jsx
 │
+├── public/
 ├── package.json
-├── vite.config.js
-└── README.md
----
-
-## Authentication
-
-The application implements secure authentication using JSON Web Tokens (JWT).
-
-Passwords are encrypted using bcrypt before being stored in the database, ensuring enhanced security.
+└── vite.config.js
+```
 
 ---
 
-## Dashboard Modules
+## Prerequisites
 
-### Employee Dashboard
-
-* Personal Information
-* Leave Application
-* Leave History
-* Leave Status
-
-### Admin Dashboard
-
-* Employee Management
-* Department Management
-* Activity Monitoring
-* Leave Administration
-* Dashboard Statistics
+- Node.js (v18 or later)
+- npm
+- MongoDB
 
 ---
 
-## Database
+## Installation
 
-MongoDB is used as the primary database for storing:
+### Clone the Repository
 
-* User Information
-* Employee Records
-* Leave Requests
-* Department Data
-* Activity Logs
-bash
-git clone :-https://github.com/adityanarayan-1234/employee-leave-management-system
+```bash
+git clone https://github.com/adityanarayan-1234/employee-leave-management-system.git
+cd employee-leave-management
+```
 
+### Install Frontend Dependencies
 
-### Install Frontend
-
-bash
-
+```bash
 npm install
 npm run dev
+```
 
+### Install Backend Dependencies
 
-### Install Backend
-
-bash
+```bash
 cd server
 npm install
-npm run dev
+```
 
+---
+
+## Running the Application
+
+### Start Backend
+
+```bash
+cd server
+npm run dev
+```
+
+### Start Frontend
+
+```bash
+npm run dev
+```
 
 ---
 
 ## Environment Variables
 
-Create a .env file inside the server directory.
+Create a `.env` file inside the `server` directory.
 
-Example:
-
-
+```env
 PORT=5000
-
-MONGODB_URI=your_mongodb_connection_string
-
+MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
-## Future Enhancements
-
-* Email Notifications
-* Leave Approval Workflow
-* Attendance Management
-* Payroll Integration
-* Report Generation
-* Calendar Integration
-* Role-Based Permissions
-* Mobile Responsive Enhancements
+```
 
 ---
-## Security
 
-- Passwords are securely hashed using bcrypt.js.
-- JWT authentication protects private routes.
-- Environment variables are stored in the server/.env file.
-- Sensitive credentials are excluded from version control using .gitignore.
+## Authentication
 
-## Learning Outcomes
+- JWT-based Authentication
+- Password Hashing using bcryptjs
+- Protected Routes
+- Role-Based Authorization (Admin & Employee)
 
-This project provided practical experience in:
+---
 
-* Building Full Stack MERN Applications
-* REST API Development
-* JWT Authentication
-* MongoDB Database Design
-* React Component Architecture
-* CRUD Operations
-* Secure User Authentication
-* State Management
-* Responsive UI Development
+## Future Enhancements
+
+- Email Notifications
+- Attendance Management
+- Payroll Integration
+- Calendar Integration
+- Advanced Reports
+- Mobile Responsiveness
 
 ---
 
 ## Author
 
-*Aditya Narayan*
+**Aditya Narayan**
 
 GitHub: https://github.com/adityanarayan-1234
 
@@ -205,4 +177,4 @@ GitHub: https://github.com/adityanarayan-1234
 
 ## License
 
-This project is intended for educational and internship demonstration purposes.
+This project is intended for educational and portfolio purposes.

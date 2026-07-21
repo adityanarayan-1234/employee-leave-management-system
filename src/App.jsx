@@ -28,7 +28,7 @@ function App() {
             <Route
               path="/dashboard"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute employeeOnly>
                   <Dashboard />
                 </ProtectedRoute>
               }
@@ -37,7 +37,7 @@ function App() {
             <Route
               path="/apply-leave"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute employeeOnly>
                   <ApplyLeave />
                 </ProtectedRoute>
               }
@@ -46,7 +46,7 @@ function App() {
             <Route
               path="/leave-history"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute employeeOnly>
                   <LeaveHistory />
                 </ProtectedRoute>
               }

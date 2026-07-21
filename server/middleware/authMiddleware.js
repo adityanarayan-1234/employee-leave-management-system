@@ -1,7 +1,8 @@
 const jwt = require("jsonwebtoken");
 const Employee = require("../models/Employee");
 
-
+// Verifies the JWT sent in the Authorization header and attaches
+// the logged-in employee (minus password) to req.user
 const protect = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
@@ -26,7 +27,7 @@ const protect = async (req, res, next) => {
   }
 };
 
-
+// Must be used after `protect`. Restricts a route to admins only.
 const isAdmin = (req, res, next) => {
   if (req.user && req.user.role === "admin") {
     return next();

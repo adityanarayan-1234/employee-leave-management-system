@@ -1,4 +1,5 @@
 const Employee = require("../models/Employee");
+const Leave = require("../models/Leave");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("../utils/asyncHandler");
@@ -10,7 +11,7 @@ const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 };
 
-
+// Shape returned to the client - never includes the password hash
 const publicEmployee = (employee) => ({
   _id: employee._id,
   name: employee.name,
@@ -21,10 +22,10 @@ const publicEmployee = (employee) => ({
   createdAt: employee.createdAt,
 });
 
-exports.register = asyncHandler(async (req, res) => {
-  const { name, email, password, role, department } = req.body;
-
-  const missing = requireFields(req.body, ["name", "email", "password"]);
+// Shared creation logic used by both public self-registration and
+// admin-initiated employee creation - keeps validation in one place
+const createEmployeeRecord = async ({ name, email, password, role, department }) => {
+  const missing = requireFields({ name, email, password }, ["name", "email", "password"]);
   if (missing.length > 0) {
     throw new ApiError(400, `Missing required field(s): ${missing.join(", ")}`);
   }
@@ -44,13 +45,17 @@ exports.register = asyncHandler(async (req, res) => {
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const newEmployee = await Employee.create({
+  return Employee.create({
     name,
     email,
     password: hashedPassword,
     role: role === "admin" ? "admin" : "employee",
     department: department || "General",
   });
+};
+
+exports.register = asyncHandler(async (req, res) => {
+  const newEmployee = await createEmployeeRecord(req.body);
 
   await logActivity({
     action: "EMPLOYEE_REGISTERED",
@@ -92,12 +97,12 @@ exports.login = asyncHandler(async (req, res) => {
   });
 });
 
-
+// Returns the currently logged-in employee's profile (used on page refresh)
 exports.getMe = asyncHandler(async (req, res) => {
   res.json({ employee: publicEmployee(req.user) });
 });
 
-
+// Admin only - paginated employee directory with search + department filter
 exports.listEmployees = asyncHandler(async (req, res) => {
   const { search = "", department = "", page = 1, limit = 8 } = req.query;
 
@@ -134,7 +139,7 @@ exports.listEmployees = asyncHandler(async (req, res) => {
   });
 });
 
-
+// Admin only - a single employee's profile detail
 exports.getEmployeeById = asyncHandler(async (req, res) => {
   const employee = await Employee.findById(req.params.id).select("-password");
 
@@ -143,4 +148,54 @@ exports.getEmployeeById = asyncHandler(async (req, res) => {
   }
 
   res.json({ employee });
+});
+
+// Admin only - add a new employee directly from the admin panel
+exports.createEmployee = asyncHandler(async (req, res) => {
+  const newEmployee = await createEmployeeRecord(req.body);
+
+  await logActivity({
+    action: "EMPLOYEE_ADDED",
+    message: `${req.user.name} added ${newEmployee.name} as ${newEmployee.role}`,
+    performedBy: req.user._id,
+    targetEmployee: newEmployee._id,
+  });
+
+  res.status(201).json({
+    success: true,
+    message: "Employee added successfully",
+    employee: publicEmployee(newEmployee),
+  });
+});
+
+// Admin only - remove an employee from the system
+exports.deleteEmployee = asyncHandler(async (req, res) => {
+  if (req.params.id === req.user._id.toString()) {
+    throw new ApiError(400, "You cannot remove your own account");
+  }
+
+  const target = await Employee.findById(req.params.id);
+  if (!target) {
+    throw new ApiError(404, "Employee not found");
+  }
+
+  // Never allow the last remaining admin to be removed - the system
+  // must always have at least one admin able to manage it
+  if (target.role === "admin") {
+    const adminCount = await Employee.countDocuments({ role: "admin" });
+    if (adminCount <= 1) {
+      throw new ApiError(400, "Cannot remove the only remaining admin account");
+    }
+  }
+
+  await Leave.deleteMany({ employee: target._id });
+  await target.deleteOne();
+
+  await logActivity({
+    action: "EMPLOYEE_REMOVED",
+    message: `${req.user.name} removed ${target.name} from the system`,
+    performedBy: req.user._id,
+  });
+
+  res.json({ success: true, message: "Employee removed successfully" });
 });

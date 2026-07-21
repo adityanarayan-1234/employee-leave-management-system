@@ -21,21 +21,25 @@ export default function Sidebar() {
       </h1>
 
       <nav className="flex flex-col gap-2">
-        <NavLink to="/dashboard" className={linkClasses}>
-          Dashboard
-        </NavLink>
+        {!isAdmin && (
+          <>
+            <NavLink to="/dashboard" className={linkClasses}>
+              Dashboard
+            </NavLink>
 
-        <NavLink to="/apply-leave" className={linkClasses}>
-          Apply Leave
-        </NavLink>
+            <NavLink to="/apply-leave" className={linkClasses}>
+              Apply Leave
+            </NavLink>
 
-        <NavLink to="/leave-history" className={linkClasses}>
-          Leave History
-        </NavLink>
+            <NavLink to="/leave-history" className={linkClasses}>
+              Leave History
+            </NavLink>
+          </>
+        )}
 
         {isAdmin && (
           <>
-            <p className="text-xs uppercase tracking-widest text-slate-500 font-semibold mt-4 mb-1 px-4">
+            <p className="text-xs uppercase tracking-widest text-slate-500 font-semibold mb-1 px-4">
               Admin
             </p>
 

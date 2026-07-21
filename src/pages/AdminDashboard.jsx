@@ -33,7 +33,7 @@ function StatusBadge({ status }) {
   );
 }
 
-
+// Small inline trash/bin icon - no extra icon package needed
 function TrashIcon() {
   return (
     <svg
@@ -94,7 +94,7 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     fetchAll();
-    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const updateStatus = async (id, status) => {

@@ -11,7 +11,6 @@ const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 };
 
-// Shape returned to the client - never includes the password hash
 const publicEmployee = (employee) => ({
   _id: employee._id,
   name: employee.name,
@@ -22,8 +21,6 @@ const publicEmployee = (employee) => ({
   createdAt: employee.createdAt,
 });
 
-// Shared creation logic used by both public self-registration and
-// admin-initiated employee creation - keeps validation in one place
 const createEmployeeRecord = async ({ name, email, password, role, department }) => {
   const missing = requireFields({ name, email, password }, ["name", "email", "password"]);
   if (missing.length > 0) {
@@ -97,12 +94,10 @@ exports.login = asyncHandler(async (req, res) => {
   });
 });
 
-// Returns the currently logged-in employee's profile (used on page refresh)
 exports.getMe = asyncHandler(async (req, res) => {
   res.json({ employee: publicEmployee(req.user) });
 });
 
-// Admin only - paginated employee directory with search + department filter
 exports.listEmployees = asyncHandler(async (req, res) => {
   const { search = "", department = "", page = 1, limit = 8 } = req.query;
 
@@ -139,7 +134,6 @@ exports.listEmployees = asyncHandler(async (req, res) => {
   });
 });
 
-// Admin only - a single employee's profile detail
 exports.getEmployeeById = asyncHandler(async (req, res) => {
   const employee = await Employee.findById(req.params.id).select("-password");
 
@@ -150,7 +144,6 @@ exports.getEmployeeById = asyncHandler(async (req, res) => {
   res.json({ employee });
 });
 
-// Admin only - add a new employee directly from the admin panel
 exports.createEmployee = asyncHandler(async (req, res) => {
   const newEmployee = await createEmployeeRecord(req.body);
 
@@ -168,7 +161,6 @@ exports.createEmployee = asyncHandler(async (req, res) => {
   });
 });
 
-// Admin only - remove an employee from the system
 exports.deleteEmployee = asyncHandler(async (req, res) => {
   if (req.params.id === req.user._id.toString()) {
     throw new ApiError(400, "You cannot remove your own account");
@@ -179,8 +171,6 @@ exports.deleteEmployee = asyncHandler(async (req, res) => {
     throw new ApiError(404, "Employee not found");
   }
 
-  // Never allow the last remaining admin to be removed - the system
-  // must always have at least one admin able to manage it
   if (target.role === "admin") {
     const adminCount = await Employee.countDocuments({ role: "admin" });
     if (adminCount <= 1) {

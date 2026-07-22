@@ -22,10 +22,7 @@ const leaveSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
-
-    // Number of calendar days the request covers (fromDate to toDate,
-    // inclusive). Stored at apply-time so balance math stays consistent
-    // even if dates were somehow edited later.
+    
     days: {
       type: Number,
       required: true,

@@ -27,8 +27,7 @@ app.get("/", (req, res) => {
     res.send("Employee Leave Management API Running");
 });
 
-// Must be registered after all routes - catches unmatched routes and
-// any error thrown/forwarded from a controller
+
 app.use(notFound);
 app.use(errorHandler);
 

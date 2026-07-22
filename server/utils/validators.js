@@ -1,6 +1,4 @@
-// Small, dependency-free validation helpers used across controllers.
-// Keeping these in one place avoids re-writing the same checks in
-// every controller function.
+
 
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
@@ -15,7 +13,7 @@ const isValidDateRange = (fromDate, toDate) => {
   return !isNaN(from) && !isNaN(to) && to >= from;
 };
 
-// Number of calendar days between two dates, inclusive of both ends
+
 const daysBetween = (fromDate, toDate) => {
   const from = new Date(fromDate);
   const to = new Date(toDate);

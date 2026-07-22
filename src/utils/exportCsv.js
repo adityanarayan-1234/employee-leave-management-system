@@ -1,5 +1,4 @@
-// Turns an array of leave records into a downloadable CSV file - no
-// extra library needed for a simple flat export like this.
+
 export function exportLeavesToCsv(leaves, filename = "leave-report.csv") {
   const headers = ["Employee", "Department", "Leave Type", "From", "To", "Days", "Status"];
 

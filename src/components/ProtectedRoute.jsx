@@ -20,8 +20,7 @@ export default function ProtectedRoute({ children, adminOnly = false, employeeOn
     return <Navigate to="/dashboard" replace />;
   }
 
-  // Admins manage leave, they don't apply for it - keep them out of the
-  // employee-facing leave application/history pages entirely
+ 
   if (employeeOnly && isAdmin) {
     return <Navigate to="/admin" replace />;
   }

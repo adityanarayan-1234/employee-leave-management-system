@@ -7,8 +7,7 @@ export function AuthProvider({ children }) {
   const [employee, setEmployee] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // On first load, if a token is already stored, fetch the profile
-  // so a page refresh doesn't log the user out
+  
   useEffect(() => {
     const token = localStorage.getItem("token");
 

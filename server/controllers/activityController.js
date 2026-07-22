@@ -1,7 +1,5 @@
 const ActivityLog = require("../models/ActivityLog");
 const asyncHandler = require("../utils/asyncHandler");
-
-// Admin only - recent activity feed / audit log, newest first
 exports.listActivity = asyncHandler(async (req, res) => {
   const { limit = 15 } = req.query;
 

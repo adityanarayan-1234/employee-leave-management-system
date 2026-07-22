@@ -17,7 +17,7 @@ export default function EmployeeProfile() {
       .then((res) => setEmployee(res.data.employee))
       .catch((err) => showToast(err.response?.data?.message || "Failed to load profile", "error"))
       .finally(() => setLoading(false));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, [id]);
 
   if (loading) {

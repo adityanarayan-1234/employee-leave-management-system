@@ -33,7 +33,7 @@ function StatusBadge({ status }) {
   );
 }
 
-// Small inline trash/bin icon - no extra icon package needed
+
 function TrashIcon() {
   return (
     <svg

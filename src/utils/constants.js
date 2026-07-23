@@ -1,4 +1,5 @@
-export const API_BASE_URL = "https://employee-leave-management-api-1.onrender.com";
+export const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
 
 export const ROLES = {
   ADMIN: "admin",
